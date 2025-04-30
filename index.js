@@ -7,6 +7,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Root route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to Beverage Ordering API" });
+});
+
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
