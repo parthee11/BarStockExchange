@@ -1,3 +1,4 @@
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -15,12 +16,6 @@ mongoose
   })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB error:", err));
-
-// Models
-const Drink = require("./models/Drink");
-const Branch = require("./models/Branch");
-const Order = require("./models/Order");
-const User = require("./models/User");
 
 // Routes
 app.use("/api/drinks", require("./routes/drinks"));
