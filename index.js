@@ -14,12 +14,6 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB error:", err));
 
-// Models
-const Drink = require("./models/Drink");
-const Branch = require("./models/Branch");
-const Order = require("./models/Order");
-const User = require("./models/User");
-
 // Routes
 app.use("/api/drinks", require("./routes/drinks"));
 app.use("/api/branches", require("./routes/branches"));
@@ -28,6 +22,7 @@ app.use("/api/users", require("./routes/users"));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
 
 // backend/models/Drink.js
 const { Schema, model } = require("mongoose");
@@ -80,3 +75,71 @@ const UserSchema = new Schema({
 });
 
 module.exports = model("User", UserSchema);
+
+// backend/routes/drinks.js
+const express = require('express');
+const router = express.Router();
+const Drink = require('../models/Drink');
+
+//Example route,  replace with your actual routes
+router.get('/', async (req, res) => {
+    try {
+        const drinks = await Drink.find();
+        res.json(drinks);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = router;
+
+// backend/routes/branches.js
+const express = require('express');
+const router = express.Router();
+const Branch = require('../models/Branch');
+
+//Example route, replace with your actual routes
+router.get('/', async (req, res) => {
+    try {
+        const branches = await Branch.find();
+        res.json(branches);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = router;
+
+// backend/routes/orders.js
+const express = require('express');
+const router = express.Router();
+const Order = require('../models/Order');
+
+//Example route, replace with your actual routes
+router.get('/', async (req, res) => {
+    try {
+        const orders = await Order.find();
+        res.json(orders);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = router;
+
+// backend/routes/users.js
+const express = require('express');
+const router = express.Router();
+const User = require('../models/User');
+
+//Example route, replace with your actual routes
+router.get('/', async (req, res) => {
+    try {
+        const users = await User.find();
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
+module.exports = router;
