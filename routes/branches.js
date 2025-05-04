@@ -1,4 +1,5 @@
-const router = require("express").Router();
+import express from "express";
+const router = express.Router();
 const Branch = require("../models/Branch");
 
 // Get all branches

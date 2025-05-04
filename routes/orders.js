@@ -1,10 +1,10 @@
-
-const router = require("express").Router();
+import express from "express";
+const router = express.Router();
 const Order = require("../models/Order");
 const Drink = require("../models/Drink");
 const Branch = require("../models/Branch");
 const User = require("../models/User");
-const app = require("express")();
+const app = express();
 
 router.post("/", async (req, res) => {
   try {
@@ -17,33 +17,37 @@ router.post("/", async (req, res) => {
     const hourOfBooking = orderTime.getHours();
 
     if (hourOfBooking >= bookingHourLimit) {
-      return res.status(400).json({ error: "Booking not allowed after cutoff time" });
+      return res
+        .status(400)
+        .json({ error: "Booking not allowed after cutoff time" });
     }
 
     let totalPrice = 0;
-    const lockedItems = await Promise.all(items.map(async (item) => {
-      const drink = await Drink.findById(item.drinkId);
-      const lockedPrice = drink.currentPrices.get(branchId);
-      totalPrice += lockedPrice * item.quantity;
+    const lockedItems = await Promise.all(
+      items.map(async (item) => {
+        const drink = await Drink.findById(item.drinkId);
+        const lockedPrice = drink.currentPrices.get(branchId);
+        totalPrice += lockedPrice * item.quantity;
 
-      // Deduct stock
-      const currentStock = drink.stock.get(branchId) || 0;
-      if (currentStock < item.quantity) {
-        throw new Error(`Insufficient stock for drink: ${drink.name}`);
-      }
-      drink.stock.set(branchId, currentStock - item.quantity);
+        // Deduct stock
+        const currentStock = drink.stock.get(branchId) || 0;
+        if (currentStock < item.quantity) {
+          throw new Error(`Insufficient stock for drink: ${drink.name}`);
+        }
+        drink.stock.set(branchId, currentStock - item.quantity);
 
-      // Simulate price increase (placeholder logic)
-      const newPrice = lockedPrice + 1; // simple logic for now
-      drink.currentPrices.set(branchId, newPrice);
-      await drink.save();
+        // Simulate price increase (placeholder logic)
+        const newPrice = lockedPrice + 1; // simple logic for now
+        drink.currentPrices.set(branchId, newPrice);
+        await drink.save();
 
-      return {
-        drinkId: item.drinkId,
-        quantity: item.quantity,
-        lockedPrice,
-      };
-    }));
+        return {
+          drinkId: item.drinkId,
+          quantity: item.quantity,
+          lockedPrice,
+        };
+      }),
+    );
 
     // Loyalty points placeholder
     const loyaltyPointsEarned = Math.floor(totalPrice / 100);
@@ -58,7 +62,9 @@ router.post("/", async (req, res) => {
     });
 
     await newOrder.save();
-    await User.findByIdAndUpdate(userId, { $inc: { loyaltyPoints: loyaltyPointsEarned } });
+    await User.findByIdAndUpdate(userId, {
+      $inc: { loyaltyPoints: loyaltyPointsEarned },
+    });
 
     // Emit updated prices
     await emitPriceUpdate(branchId);
