@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
-import { Drink } from "./models/Drink.js";
+import Drink from "./models/Drink.js";
 import dotenv from "dotenv";
 
 dotenv.config();

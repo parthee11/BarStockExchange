@@ -1,5 +1,6 @@
 
-const { Schema, model } = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
 const DrinkSchema = new Schema({
   name: String,
@@ -9,4 +10,4 @@ const DrinkSchema = new Schema({
   stock: { type: Map, of: Number },
 });
 
-module.exports = model("Drink", DrinkSchema);
+export default model("Drink", DrinkSchema);
