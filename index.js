@@ -1,5 +1,4 @@
-
-const express = require("express");
+import express from "express";
 const mongoose = require("mongoose");
 const cors = require("cors");
 const http = require("http");
@@ -12,8 +11,8 @@ const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
     origin: "*",
-    methods: ["GET", "POST"]
-  }
+    methods: ["GET", "POST"],
+  },
 });
 
 app.use(cors());
@@ -48,9 +47,10 @@ io.on("connection", (socket) => {
 // Function to emit price updates
 const emitPriceUpdate = async (branchId) => {
   const drinks = await Drink.find();
-  const updatedPrices = drinks.map(drink => ({
+  const updatedPrices = drinks.map((drink) => ({
     drinkId: drink._id,
-    price: drink.currentPrices.get(branchId) || drink.basePrices.get(branchId) || 0
+    price:
+      drink.currentPrices.get(branchId) || drink.basePrices.get(branchId) || 0,
   }));
   io.emit("priceUpdate", { branchId, prices: updatedPrices });
 };
