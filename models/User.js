@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 
 const UserSchema = new Schema({
   email: String,
-  password: String,
+  firebaseUid: { type: String, unique: true },
   name: String,
   loyaltyPoints: { type: Number, default: 0 },
   isGuest: Boolean,
