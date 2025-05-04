@@ -1,14 +1,17 @@
+
 import express from "express";
-const mongoose = require("mongoose");
-const cors = require("cors");
-const http = require("http");
-const socketIo = require("socket.io");
-const Drink = require("./models/Drink");
-require("dotenv").config();
+import mongoose from "mongoose";
+import cors from "cors";
+import http from "http";
+import { Server } from "socket.io";
+import Drink from "./models/Drink";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server, {
+const io = new Server(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST"],
@@ -30,10 +33,10 @@ mongoose
   .catch((err) => console.error("MongoDB error:", err));
 
 // Routes
-app.use("/api/drinks", require("./routes/drinks"));
-app.use("/api/branches", require("./routes/branches"));
-app.use("/api/orders", require("./routes/orders"));
-app.use("/api/users", require("./routes/users"));
+app.use("/api/drinks", (await import("./routes/drinks")).default);
+app.use("/api/branches", (await import("./routes/branches")).default);
+app.use("/api/orders", (await import("./routes/orders")).default);
+app.use("/api/users", (await import("./routes/users")).default);
 
 // Socket.IO logic for real-time pricing
 io.on("connection", (socket) => {
