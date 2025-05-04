@@ -1,10 +1,9 @@
-
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
-import Drink from "./models/Drink";
+import Drink from "./models/Drink.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -33,10 +32,10 @@ mongoose
   .catch((err) => console.error("MongoDB error:", err));
 
 // Routes
-app.use("/api/drinks", (await import("./routes/drinks")).default);
-app.use("/api/branches", (await import("./routes/branches")).default);
-app.use("/api/orders", (await import("./routes/orders")).default);
-app.use("/api/users", (await import("./routes/users")).default);
+app.use("/api/drinks", (await import("./routes/drinks.js")).default);
+app.use("/api/branches", (await import("./routes/branches.js")).default);
+app.use("/api/orders", (await import("./routes/orders.js")).default);
+app.use("/api/users", (await import("./routes/users.js")).default);
 
 // Socket.IO logic for real-time pricing
 io.on("connection", (socket) => {
