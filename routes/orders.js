@@ -1,9 +1,10 @@
 import express from "express";
+import Order from "../models/Order.js";
+import Drink from "../models/Drink.js";
+import Branch from "../models/Branch.js";
+import User from "../models/User.js";
+
 const router = express.Router();
-const Order = require("../models/Order");
-const Drink = require("../models/Drink");
-const Branch = require("../models/Branch");
-const User = require("../models/User");
 const app = express();
 
 router.post("/", async (req, res) => {
@@ -76,4 +77,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

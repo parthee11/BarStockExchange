@@ -1,15 +1,16 @@
 
-const express = require('express');
-const router = express.Router();
-const { 
+import express from 'express';
+import { 
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInAnonymously,
   GoogleAuthProvider,
   signInWithPopup
-} = require('firebase/auth');
-const { auth } = require('../config/firebase');
-const User = require('../models/User');
+} from 'firebase/auth';
+import { auth } from '../config/firebase.js';
+import User from '../models/User.js';
+
+const router = express.Router();
 
 // Register
 router.post('/register', async (req, res) => {
@@ -77,4 +78,4 @@ router.post('/google', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

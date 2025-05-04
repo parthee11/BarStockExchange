@@ -1,5 +1,6 @@
 
-const { Schema, model } = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
 const OrderSchema = new Schema({
   userId: String,
@@ -16,4 +17,4 @@ const OrderSchema = new Schema({
   loyaltyPoints: { type: Number, default: 0 },
 });
 
-module.exports = model("Order", OrderSchema);
+export default model("Order", OrderSchema);
