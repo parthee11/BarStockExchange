@@ -1,11 +1,12 @@
 
 import express from "express";
 import Branch from "../models/Branch.js";
+import authenticateToken from "../middleware/auth.js";
 
 const router = express.Router();
 
 // Get all branches
-router.get("/", async (req, res) => {
+router.get("/", authenticateToken, async (req, res) => {
   const branches = await Branch.find();
   res.json(branches);
 });

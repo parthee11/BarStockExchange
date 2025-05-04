@@ -3,11 +3,12 @@ import Order from "../models/Order.js";
 import Drink from "../models/Drink.js";
 import Branch from "../models/Branch.js";
 import User from "../models/User.js";
+import authenticateToken from "../middleware/auth.js";
 
 const router = express.Router();
 const app = express();
 
-router.post("/", async (req, res) => {
+router.post("/", authenticateToken, async (req, res) => {
   try {
     const { userId, branchId, items, table, timestamp } = req.body;
     const emitPriceUpdate = req.app.get("emitPriceUpdate");
