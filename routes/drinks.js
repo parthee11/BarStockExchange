@@ -1,6 +1,8 @@
+
 import express from "express";
+import Drink from "../models/Drink.js";
+
 const router = express.Router();
-const Drink = require("../models/Drink");
 
 // Get all drinks
 router.get("/", async (req, res) => {
@@ -29,4 +31,4 @@ router.delete("/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-module.exports = router;
+export default router;

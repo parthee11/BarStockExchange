@@ -1,5 +1,6 @@
 
-const { Schema, model } = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
 const UserSchema = new Schema({
   email: String,
@@ -9,4 +10,4 @@ const UserSchema = new Schema({
   isGuest: Boolean,
 });
 
-module.exports = model("User", UserSchema);
+export default model("User", UserSchema);

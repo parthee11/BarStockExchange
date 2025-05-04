@@ -1,5 +1,6 @@
 
-const { Schema, model } = require("mongoose");
+import mongoose from "mongoose";
+const { Schema, model } = mongoose;
 
 const BranchSchema = new Schema({
   name: String,
@@ -8,4 +9,4 @@ const BranchSchema = new Schema({
   isActive: Boolean
 });
 
-module.exports = model("Branch", BranchSchema);
+export default model("Branch", BranchSchema);

@@ -1,6 +1,8 @@
+
 import express from "express";
+import Branch from "../models/Branch.js";
+
 const router = express.Router();
-const Branch = require("../models/Branch");
 
 // Get all branches
 router.get("/", async (req, res) => {
@@ -29,4 +31,4 @@ router.delete("/:id", async (req, res) => {
   res.json({ success: true });
 });
 
-module.exports = router;
+export default router;
