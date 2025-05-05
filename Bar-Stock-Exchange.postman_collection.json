@@ -1,0 +1,279 @@
+
+{
+  "info": {
+    "name": "Bar Stock Exchange",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\",\n    \"name\": \"Test User\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "login"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Guest Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/guest",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "guest"]
+            }
+          }
+        },
+        {
+          "name": "Google Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/google",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "google"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Drinks",
+      "item": [
+        {
+          "name": "Get All Drinks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/drinks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "drinks"]
+            }
+          }
+        },
+        {
+          "name": "Add Drink",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/drinks",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "drinks"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Beer\",\n    \"category\": \"Alcohol\",\n    \"basePrices\": {\n        \"branch1\": 100\n    },\n    \"currentPrices\": {\n        \"branch1\": 100\n    },\n    \"stock\": {\n        \"branch1\": 50\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update Drink",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/drinks/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "drinks", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "drinkId"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Beer\",\n    \"category\": \"Alcohol\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Delete Drink",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/drinks/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "drinks", ":id"],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "drinkId"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Branches",
+      "item": [
+        {
+          "name": "Get All Branches",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/branches",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "branches"]
+            }
+          }
+        },
+        {
+          "name": "Add Branch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/branches",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "branches"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Downtown Branch\",\n    \"location\": \"123 Main St\",\n    \"bookingCutoff\": \"22:00\",\n    \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Place Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "orders"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"userId\": \"user123\",\n    \"branchId\": \"branch123\",\n    \"items\": [\n        {\n            \"drinkId\": \"drink123\",\n            \"quantity\": 2\n        }\n    ],\n    \"table\": \"A1\",\n    \"timestamp\": \"2024-01-30T12:00:00Z\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000"
+    },
+    {
+      "key": "token",
+      "value": "your-firebase-token-here"
+    }
+  ]
+}
