@@ -44,8 +44,12 @@ router.post('/login', async (req, res) => {
 // Guest login
 router.post('/guest', async (req, res) => {
   try {
-    const userCredential = await signInAnonymously(auth);
+    const guestEmail = `guest_${Date.now()}@temporary.com`;
+    const guestPassword = 'Guest@' + Date.now();
+    
+    const userCredential = await createUserWithEmailAndPassword(auth, guestEmail, guestPassword);
     const user = await User.create({
+      email: guestEmail,
       firebaseUid: userCredential.user.uid,
       name: 'Guest User',
       isGuest: true
