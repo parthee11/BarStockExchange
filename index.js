@@ -32,6 +32,7 @@ mongoose
   .catch((err) => console.error("MongoDB error:", err));
 
 // Routes
+app.use("/api/auth", (await import("./routes/auth.js")).default);
 app.use("/api/drinks", (await import("./routes/drinks.js")).default);
 app.use("/api/branches", (await import("./routes/branches.js")).default);
 app.use("/api/orders", (await import("./routes/orders.js")).default);
