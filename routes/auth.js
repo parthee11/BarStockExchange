@@ -23,7 +23,8 @@ router.post('/register', async (req, res) => {
       firebaseUid: userCredential.user.uid,
       isGuest: false
     });
-    res.status(201).json({ user });
+    const token = await userCredential.user.getIdToken();
+    res.status(201).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -35,7 +36,8 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = await User.findOne({ firebaseUid: userCredential.user.uid });
-    res.json({ user });
+    const token = await userCredential.user.getIdToken();
+    res.json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -54,7 +56,8 @@ router.post('/guest', async (req, res) => {
       name: 'Guest User',
       isGuest: true
     });
-    res.json({ user });
+    const token = await userCredential.user.getIdToken();
+    res.json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -76,7 +79,8 @@ router.post('/google', async (req, res) => {
       });
     }
     
-    res.json({ user });
+    const token = await userCredential.user.getIdToken();
+    res.json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
